@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import cardBackground from'./img/card_background.png';
 
 class ProductItem extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ProductItem extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.onEdit = this.onEdit.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
+    this.isDone = this.isDone.bind(this);
   }
 
   onDelete() {
@@ -32,6 +34,12 @@ class ProductItem extends Component {
     this.setState({ isEdit: false });
   }
 
+  isDone(event) {
+    event.preventDefault();
+
+    this.props.isDone(this.props.name, event.target);
+  }
+
   render() {
     const { name, price } = this.props;
 
@@ -47,14 +55,12 @@ class ProductItem extends Component {
             </form>
           )
           : (
-            <div>
+            <div className="card">
               <span>{name}</span>
-              {' | '}
                <span>{price}</span>
-              {' | '}
               <button onClick={this.onEdit}>Edit</button>
-              {' | '}
               <button onClick={this.onDelete}>Delete</button>
+              <button className="button-todo" onClick={this.isDone}>Click to ready / unready</button>
             </div>
           )
         }

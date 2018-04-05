@@ -7,11 +7,13 @@ import AddProduct from './addProduct';
 const products = [
   {
     name: 'iPad',
-    price: 200
+    price: 200,
+    isDone: false
   },
   {
     name: 'iPhone',
-    price: 650
+    price: 650,
+    isDone: false
   }
 ]
 
@@ -28,6 +30,7 @@ class App extends Component {
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
+    this.isDone = this.isDone.bind(this);
   }
 
   componentWillMount() {
@@ -76,27 +79,59 @@ class App extends Component {
     this.setState({ products });
   }
 
+  isDone(name, eventTarget) {
+    let tempProducts = products.map(product => {
+      if (product.name === name) {
+        if (product.isDone) {
+          product.isDone = false;
+        } else {
+          product.isDone = true;
+        }
+        eventTarget.classList.toggle('button-done')
+
+      }
+      return product;
+    });
+
+    this.setState({ tempProducts })
+  }
+
   render() {
     return (
-      <div className="App">
-        <h1>Products Manager</h1>
-
-        <AddProduct
-          onAdd={this.onAdd}
-        />
-
-      {
-        this.state.products.map(product => {
-          return (
-            <ProductItem
-              key={product.name}
-              {...product}
-              onDelete={this.onDelete}
-              onEditSubmit={this.onEditSubmit}
-            />
-          );
-        })
-      }
+      <div className="main-container">
+        <div className="header">
+          <span>Let's Do It! :)</span>
+        </div>
+        <div className="pseudo-body">
+          <AddProduct onAdd={this.onAdd}/>
+          <div className="grid-container">
+            <div className="grid-item">
+              <div className="column-title">To do</div>
+              {
+                this.state.products.map(product => {
+                  return (
+                    <ProductItem
+                      key={product.name}
+                      {...product}
+                      onDelete={this.onDelete}
+                      onEditSubmit={this.onEditSubmit}
+                      isDone={this.isDone}
+                    />
+                  );
+                })
+              }
+            </div>
+            <div className="grid-item">
+              <div className="column-title">Doing</div>
+            </div>
+            <div className="grid-item">
+              <div className="column-title">Done</div>
+            </div>
+          </div>
+        </div>
+        <div className="footer">
+          <span>Ferenc Hartmann's TODO React App</span>
+        </div>
       </div>
     );
   }

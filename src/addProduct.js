@@ -18,12 +18,10 @@ class AddProduct extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <h3>Add Product</h3>
+      <form className="form-field" onSubmit={this.onSubmit}>
         <input placeholder="Name" ref={nameInput => this.nameInput = nameInput } />
         <input placeholder="Price" ref={priceInput => this.priceInput = priceInput } />
         <button>Add</button>
-        <hr/>
       </form>
     );
   }

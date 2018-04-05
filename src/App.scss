@@ -5,6 +5,96 @@ h3 {
 }
 
 body {
-  background-color: grey;
+  font-family: 'Source Serif Pro', serif;
   text-align: center;
+}
+
+.button-todo {
+  background-color: red;
+}
+
+.button-done {
+  background-color: green;
+}
+
+.header {
+  background-color: rgb(10, 10, 10);
+  color: rgb(255, 255, 255);
+  font-family: 'Hi Melody', cursive;
+  font-size: 40px;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.footer {
+  background-color: rgb(10, 10, 10);
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  line-height: 40px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.main-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url("./img/main_background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+}
+
+.pseudo-body {
+  margin: auto;
+  margin-top: 80px;
+  max-width: 992px;
+  min-height: calc(100vh - 120px);
+}
+
+.grid-container {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-auto-columns: 1fr;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  grid-row: 1;
+}
+
+.form-field {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.column-title {
+  background-color: rgba(240, 240, 240, 0.8);
+  border-radius: 3px 3px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 50px;
+  margin-bottom: 20px;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+}
+
+.card {
+  background: url("./img/card_background.png");
+  // background: linear-gradient(rgba(255, 100, 100, 0.5), rgba(255, 100, 100, 0.5)),
+  //             url("./img/card_background.png");
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.30), 0 3px 7px rgba(0,0,0,0.33), inset 0 0 10px #000000;;
+  height: 60px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
 }
