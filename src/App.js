@@ -2,21 +2,27 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import ProductItem from './productItem';
-import AddProduct from './addProduct';
 
 const products = [
   {
     name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
     id: 0,
-    autoEdit: false,
-    status: 'todo'
+    status: 'todo',
+    autoEdit: false
   },
   {
     name: 'iPhone',
     id: 1,
-    autoEdit: false,
-    status: 'todo'
+    status: 'doing',
+    autoEdit: false
+  },
+  {
+    name: 'alma',
+    id: 2,
+    status: 'done',
+    autoEdit: false
   }
+
 ]
 
 localStorage.setItem('products', JSON.stringify(products));
@@ -46,14 +52,17 @@ class App extends Component {
     return this.state.products
   }
 
-  onAdd() {
+  onAdd(event) {
+    event.preventDefault();
+
     const products = this.getProducts();
     const name = 'My to-do is...';
     const autoEdit = true;
 
+    let status = event.target.getAttribute('data-status');
     let id = this.idSetter(products);
 
-    products.push({ name, id, autoEdit });
+    products.push({ name, id, status, autoEdit });
 
     this.setState({ products });
   }
@@ -116,33 +125,66 @@ class App extends Component {
           <span>Let's Do It! :)</span>
         </div>
         <div className="pseudo-body">
-          <AddProduct onAdd={this.onAdd}/>
           <div className="grid-container">
             <div className="grid-item">
               <div className="column-title">I have to do...</div>
               {
                 this.state.products.map(product => {
-                  return (
-                    <ProductItem
+                  let productList;
+                  if (product.status === 'todo') {
+                    productList =
+                     <ProductItem
                       key={product.id}
                       {...product}
                       onDelete={this.onDelete}
                       onEditSubmit={this.onEditSubmit}
                       isDone={this.isDone}
                     />
-                  );
+                  }
+                  return productList
                 })
-
               }
-              <div className="column-add-card" onClick={this.onAdd}>Add a card...</div>
+              <div className="column-add-card" data-status="todo" onClick={this.onAdd}>Add a card...</div>
             </div>
             <div className="grid-item">
               <div className="column-title">I'm doing...</div>
-                <div className="column-add-card">Add a card...</div>
+                {
+                  this.state.products.map(product => {
+                    let productList;
+                    if (product.status === 'doing') {
+                      productList =
+                       <ProductItem
+                        key={product.id}
+                        {...product}
+                        onDelete={this.onDelete}
+                        onEditSubmit={this.onEditSubmit}
+                        isDone={this.isDone}
+                      />
+                    }
+                    return productList
+                  })
+                }
+              <div className="column-add-card" data-status="doing" onClick={this.onAdd}>Add a card...</div>
             </div>
             <div className="grid-item">
               <div className="column-title">I've done this all!</div>
-                <div className="column-add-card">Add a card...</div>
+                {
+                  this.state.products.map(product => {
+                    let productList;
+                    if (product.status === 'done') {
+                      productList =
+                       <ProductItem
+                        key={product.id}
+                        {...product}
+                        onDelete={this.onDelete}
+                        onEditSubmit={this.onEditSubmit}
+                        isDone={this.isDone}
+                      />
+                    }
+                    return productList
+                  })
+                }
+              <div className="column-add-card" data-status="todo" onClick={this.onAdd}>Add a card...</div>
             </div>
           </div>
         </div>

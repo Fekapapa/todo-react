@@ -13,7 +13,7 @@ class ProductItem extends Component {
     this.onEdit = this.onEdit.bind(this);
     this.onEditBack = this.onEditBack.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
-    this.isDone = this.isDone.bind(this);
+    this.statusMenu = this.statusMenu.bind(this);
   }
 
   componentDidMount() {
@@ -50,10 +50,10 @@ class ProductItem extends Component {
     this.setState({ isEdit: false });
   }
 
-  isDone(event) {
+  statusMenu(event) {
     event.preventDefault();
 
-    this.props.isDone(this.props.name, event.target);
+    this.props.statusMenu(this.props.name, event.target);
   }
 
   render() {
@@ -78,7 +78,7 @@ class ProductItem extends Component {
             <div className="card">
               <div className="card-header">
                 <span className="card-button" onClick={this.onEdit} data-id={this.props.id} data-edit={this.props.autoEdit}>Edit</span>
-                <span className="card-button" onClick={this.isDone}>Set state</span>
+                <span className="card-button" onClick={this.statusMenu}>Change status</span>
                 <span className="card-button-delete" onClick={this.onDelete}></span>
               </div>
               <div className="card-text">{name}</div>
