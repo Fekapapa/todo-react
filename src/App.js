@@ -7,11 +7,15 @@ import AddProduct from './addProduct';
 const products = [
   {
     name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
-    isDone: false
+    id: 0,
+    autoEdit: false,
+    status: 'todo'
   },
   {
     name: 'iPhone',
-    isDone: false
+    id: 1,
+    autoEdit: false,
+    status: 'todo'
   }
 ]
 
@@ -27,6 +31,7 @@ class App extends Component {
 
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.idSetter = this.idSetter.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
     this.isDone = this.isDone.bind(this);
   }
@@ -41,35 +46,47 @@ class App extends Component {
     return this.state.products
   }
 
-  onAdd(name) {
+  onAdd() {
     const products = this.getProducts();
+    const name = 'My to-do is...';
+    const autoEdit = true;
 
-    products.push({
-      name,
-    });
+    let id = this.idSetter(products);
+
+    products.push({ name, id, autoEdit });
 
     this.setState({ products });
   }
 
-  onDelete(name) {
+  idSetter(products, tempId = 0) {
+    Object.keys(products).forEach(function(key) {
+      products[key].autoEdit = false;
+
+      if (products[key].id >= tempId) {
+        tempId = products[key].id + 1;
+      }
+    });
+
+    return tempId
+  }
+
+  onDelete(id) {
     const products = this.getProducts();
 
     const filteredProducts = products.filter(product => {
-      return product.name !== name;
+      return product.id !== id;
     })
 
     this.setState({ products: filteredProducts })
   }
 
-  onEditSubmit(name, originalName) {
+  onEditSubmit(name, id) {
     let products = this.getProducts();
 
-    products = products.map(product => {
-      if (product.name === originalName) {
-        product.name = name;
+    Object.keys(products).forEach(function(key) {
+      if (products[key].id === id) {
+        products[key].name = name;
       }
-
-      return product;
     });
 
     this.setState({ products });
@@ -83,7 +100,7 @@ class App extends Component {
         } else {
           product.isDone = true;
         }
-        eventTarget.classList.toggle('button-done')
+        eventTarget.classList.toggle('button-done');
 
       }
       return product;
@@ -107,7 +124,7 @@ class App extends Component {
                 this.state.products.map(product => {
                   return (
                     <ProductItem
-                      key={product.name}
+                      key={product.id}
                       {...product}
                       onDelete={this.onDelete}
                       onEditSubmit={this.onEditSubmit}
@@ -115,8 +132,9 @@ class App extends Component {
                     />
                   );
                 })
+
               }
-              <div className="column-add-card">Add a card...</div>
+              <div className="column-add-card" onClick={this.onAdd}>Add a card...</div>
             </div>
             <div className="grid-item">
               <div className="column-title">I'm doing...</div>

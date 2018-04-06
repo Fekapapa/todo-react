@@ -33,6 +33,7 @@ input {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 
 .footer {
@@ -56,6 +57,7 @@ input {
 
 .pseudo-body {
   margin: auto;
+  margin-bottom: 40px;
   margin-top: 80px;
   max-width: 992px;
   min-height: calc(100vh - 120px);
@@ -79,7 +81,11 @@ input {
   align-self: start;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 5px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
+
+  @media screen and (min-width: $break-small) {
+    margin-bottom: 60px;
+  }
 }
 
 .form-field {
@@ -163,16 +169,6 @@ input {
   width: 20px;
 }
 
-.column-add-card {
-  border-radius: 0 0 3px 3px;
-  font-family: 'Hi Melody', cursive;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 40px;
-  padding-left: 10px;
-  text-align: left;
-}
-
 .card-invisible {
   visibility: hidden;
   pointer-events: none;
@@ -185,4 +181,26 @@ input {
 
 form .card-header {
   padding-right: 0;
+}
+
+.card-header-text {
+  color: rgb(225, 224, 220);
+  cursor: auto;
+  display: inline-block;
+  font-size: 14px;
+  left: 10px;
+  margin-right: 10px;
+  position: absolute;
+  top: 8px;
+}
+
+.column-add-card {
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  font-family: 'Hi Melody', cursive;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 40px;
+  padding-left: 10px;
+  text-align: left;
 }

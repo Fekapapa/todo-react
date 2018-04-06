@@ -16,10 +16,22 @@ class ProductItem extends Component {
     this.isDone = this.isDone.bind(this);
   }
 
-  onDelete() {
-    const { onDelete, name } = this.props;
+  componentDidMount() {
+    if (this.props.autoEdit) {
+      let myList = document.querySelectorAll('[data-id]');
+      Array.from(myList).forEach(node => {
+        let tempData = node.getAttribute('data-edit');
+        if (tempData === 'true') {
+          node.click();
+        }
+      });
+    }
+  }
 
-    onDelete(name);
+  onDelete() {
+    const { onDelete, id } = this.props;
+
+    onDelete(id);
   }
 
   onEdit() {
@@ -33,7 +45,7 @@ class ProductItem extends Component {
   onEditSubmit(event) {
     event.preventDefault();
 
-    this.props.onEditSubmit(this.nameInput.value, this.props.name);
+    this.props.onEditSubmit(this.nameInput.value, this.props.id);
 
     this.setState({ isEdit: false });
   }
@@ -54,6 +66,7 @@ class ProductItem extends Component {
           ? (
             <form className="card" onSubmit={this.onEditSubmit}>
               <div className="card-header">
+                <span className="card-header-text">Editing...</span>
                 <input className="card-button" type="submit" value="Save"/>
                 <span className="card-button" onClick={this.onEditBack}>Back</span>
               </div>
@@ -64,7 +77,7 @@ class ProductItem extends Component {
           : (
             <div className="card">
               <div className="card-header">
-                <span className="card-button" onClick={this.onEdit}>Edit</span>
+                <span className="card-button" onClick={this.onEdit} data-id={this.props.id} data-edit={this.props.autoEdit}>Edit</span>
                 <span className="card-button" onClick={this.isDone}>Set state</span>
                 <span className="card-button-delete" onClick={this.onDelete}></span>
               </div>
