@@ -1,4 +1,7 @@
 $break-small: 768px;
+$break-normal: 992px;
+
+$bg-color: rgb(30, 30, 30);
 
 body {
   font-family: 'Source Serif Pro', serif;
@@ -47,12 +50,22 @@ input {
 }
 
 .main-container {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-              url("./img/main_background.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 300px, transparent 450px), linear-gradient(to bottom, transparent 300px, $bg-color 450px), url("./img/main_background_mobile.jpg");
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background-position: top;
+  background-size: 100%;
 
+  @media screen and (min-width: $break-small) {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background_mobile.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  @media screen and (min-width: $break-normal) {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
 }
 
 .pseudo-body {
@@ -68,12 +81,12 @@ input {
   grid-gap: 20px;
   grid-template-columns: auto;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
-  padding: 20px 0 10% 10%;
+  padding: 20px 10% 0 10%;
 
   @media screen and (min-width: $break-small) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
-    padding: 20px 0 10px 10px;
+    padding: 20px 10px 0 10px;
   }
 }
 
