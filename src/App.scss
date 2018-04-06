@@ -11,7 +11,7 @@ textarea {
   color: rgb(100, 100, 100);
   display: block;
   font-family: 'Source Serif Pro', serif;
-  height: calc(100% - 42px);
+  height: calc(100% - 34px);
   resize: none;
   outline: none;
 }
@@ -104,9 +104,6 @@ input {
 }
 
 .card {
-  // background: url("./img/card_background.png");
-  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
-              url("./img/card_background.png");
   background-repeat: no-repeat;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.30), 0 3px 7px rgba(0,0,0,0.33), inset 0 0 10px rgb(0, 0, 0);
@@ -118,15 +115,31 @@ input {
   position: relative;
 }
 
+.todo .card-background {
+  background: linear-gradient(rgba(255, 220, 220, 0.5), rgba(255, 220, 220, 0.5)), url("./img/card_background.png");
+}
+
+.doing .card-background {
+  background: linear-gradient(rgba(255, 255, 220, 0.5), rgba(255, 255, 220, 0.5)), url("./img/card_background.png");
+}
+
+.done .card-background {
+  background: linear-gradient(rgba(220, 255, 220, 0.5), rgba(220, 255, 220, 0.5)), url("./img/card_background.png");
+}
+
 .card-header {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 10px 10px 0 0;
-  padding: 5px;
-  padding-right: 23px;
+  height: 25px;
+  overflow: hidden;
   padding-top: 3px;
-  padding-bottom: 8px;
   position: relative;
   text-align: right;
+  transition: height 0.2s ease-in;
+}
+
+.card-header-menu {
+  margin-right: 25px;
 }
 
 .card-text {
@@ -176,7 +189,7 @@ input {
 
 .card-textarea {
   position: absolute;
-  top: 32px;
+  top: 28px;
 }
 
 form .card-header {
@@ -191,7 +204,7 @@ form .card-header {
   left: 10px;
   margin-right: 10px;
   position: absolute;
-  top: 8px;
+  top: 6px;
 }
 
 .column-add-card {
@@ -203,4 +216,33 @@ form .card-header {
   line-height: 40px;
   padding-left: 10px;
   text-align: left;
+}
+
+.card-checkbox {
+  display: none;
+}
+
+.card-status-submenu {
+  color: rgb(225, 224, 220);
+  cursor: auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-top: 5px;
+  max-height: 30px;
+  overflow: hidden;
+  left: 0;
+  top: 32px;
+  transition:max-height 0.3s ease-in;
+  width: 100%;
+}
+
+input:checked ~ div.card-header {
+  height: 50px;
+  transition: height 0.2s ease-in;
+}
+
+.card-status-submenu-element {
+  margin-bottom: 5px;
 }

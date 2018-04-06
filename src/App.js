@@ -39,7 +39,7 @@ class App extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.idSetter = this.idSetter.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
-    this.isDone = this.isDone.bind(this);
+    this.setStatus = this.setStatus.bind(this);
   }
 
   componentWillMount() {
@@ -97,25 +97,19 @@ class App extends Component {
         products[key].name = name;
       }
     });
-
     this.setState({ products });
   }
 
-  isDone(name, eventTarget) {
-    let tempProducts = products.map(product => {
-      if (product.name === name) {
-        if (product.isDone) {
-          product.isDone = false;
-        } else {
-          product.isDone = true;
-        }
-        eventTarget.classList.toggle('button-done');
+  setStatus(id, status) {
+    let products = this.getProducts();
 
+    Object.keys(products).forEach(function(key) {
+      if (products[key].id === id) {
+        products[key].status = status;
       }
-      return product;
     });
 
-    this.setState({ tempProducts })
+    this.setState({ products });
   }
 
   render() {
@@ -126,7 +120,7 @@ class App extends Component {
         </div>
         <div className="pseudo-body">
           <div className="grid-container">
-            <div className="grid-item">
+            <div className="grid-item todo">
               <div className="column-title">I have to do...</div>
               {
                 this.state.products.map(product => {
@@ -138,7 +132,7 @@ class App extends Component {
                       {...product}
                       onDelete={this.onDelete}
                       onEditSubmit={this.onEditSubmit}
-                      isDone={this.isDone}
+                      setStatus={this.setStatus}
                     />
                   }
                   return productList
@@ -146,7 +140,7 @@ class App extends Component {
               }
               <div className="column-add-card" data-status="todo" onClick={this.onAdd}>Add a card...</div>
             </div>
-            <div className="grid-item">
+            <div className="grid-item doing">
               <div className="column-title">I'm doing...</div>
                 {
                   this.state.products.map(product => {
@@ -158,7 +152,7 @@ class App extends Component {
                         {...product}
                         onDelete={this.onDelete}
                         onEditSubmit={this.onEditSubmit}
-                        isDone={this.isDone}
+                        setStatus={this.setStatus}
                       />
                     }
                     return productList
@@ -166,7 +160,7 @@ class App extends Component {
                 }
               <div className="column-add-card" data-status="doing" onClick={this.onAdd}>Add a card...</div>
             </div>
-            <div className="grid-item">
+            <div className="grid-item done">
               <div className="column-title">I've done this all!</div>
                 {
                   this.state.products.map(product => {
@@ -178,13 +172,13 @@ class App extends Component {
                         {...product}
                         onDelete={this.onDelete}
                         onEditSubmit={this.onEditSubmit}
-                        isDone={this.isDone}
+                        setStatus={this.setStatus}
                       />
                     }
                     return productList
                   })
                 }
-              <div className="column-add-card" data-status="todo" onClick={this.onAdd}>Add a card...</div>
+              <div className="column-add-card" data-status="done" onClick={this.onAdd}>Add a card...</div>
             </div>
           </div>
         </div>
