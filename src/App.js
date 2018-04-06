@@ -6,13 +6,11 @@ import AddProduct from './addProduct';
 
 const products = [
   {
-    name: 'iPad',
-    price: 200,
+    name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
     isDone: false
   },
   {
     name: 'iPhone',
-    price: 650,
     isDone: false
   }
 ]
@@ -43,12 +41,11 @@ class App extends Component {
     return this.state.products
   }
 
-  onAdd(name, price) {
+  onAdd(name) {
     const products = this.getProducts();
 
     products.push({
       name,
-      price
     });
 
     this.setState({ products });
@@ -64,13 +61,12 @@ class App extends Component {
     this.setState({ products: filteredProducts })
   }
 
-  onEditSubmit(name, price, originalName) {
+  onEditSubmit(name, originalName) {
     let products = this.getProducts();
 
     products = products.map(product => {
       if (product.name === originalName) {
         product.name = name;
-        product.price = price;
       }
 
       return product;
@@ -106,7 +102,7 @@ class App extends Component {
           <AddProduct onAdd={this.onAdd}/>
           <div className="grid-container">
             <div className="grid-item">
-              <div className="column-title">To do</div>
+              <div className="column-title">I have to do...</div>
               {
                 this.state.products.map(product => {
                   return (
@@ -120,12 +116,15 @@ class App extends Component {
                   );
                 })
               }
+              <div className="column-add-card">Add a card...</div>
             </div>
             <div className="grid-item">
-              <div className="column-title">Doing</div>
+              <div className="column-title">I'm doing...</div>
+                <div className="column-add-card">Add a card...</div>
             </div>
             <div className="grid-item">
-              <div className="column-title">Done</div>
+              <div className="column-title">I've done this all!</div>
+                <div className="column-add-card">Add a card...</div>
             </div>
           </div>
         </div>

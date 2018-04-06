@@ -29,7 +29,7 @@ class ProductItem extends Component {
   onEditSubmit(event) {
     event.preventDefault();
 
-    this.props.onEditSubmit(this.nameInput.value, this.priceInput.value, this.props.name);
+    this.props.onEditSubmit(this.nameInput.value, this.props.name);
 
     this.setState({ isEdit: false });
   }
@@ -50,17 +50,17 @@ class ProductItem extends Component {
           ? (
             <form onSubmit={this.onEditSubmit}>
               <input placeholder="Name" ref={nameInput => this.nameInput = nameInput } defaultValue={name}/>
-              <input placeholder="Price" ref={priceInput => this.priceInput = priceInput } defaultValue={price}/>
               <button>Save</button>
             </form>
           )
           : (
             <div className="card">
-              <span>{name}</span>
-               <span>{price}</span>
-              <button onClick={this.onEdit}>Edit</button>
-              <button onClick={this.onDelete}>Delete</button>
-              <button className="button-todo" onClick={this.isDone}>Click to ready / unready</button>
+              <div className="card-header">
+                <span className="card-button" onClick={this.onEdit}>Edit</span>
+                <span className="card-button" onClick={this.isDone}>Set state</span>
+                <span className="card-button-delete" onClick={this.onDelete}></span>
+              </div>
+              <div className="card-text">{name}</div>
             </div>
           )
         }
