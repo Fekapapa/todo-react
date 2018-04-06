@@ -80,7 +80,7 @@ class ProductItem extends Component {
                 <span className="card-button" onClick={this.onEditBack}>Back</span>
               </div>
                 <div className="card-text card-invisible">{name}</div>
-                <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" placeholder={name} ref={nameInput => this.nameInput = nameInput }></textarea>
+                <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" defaultValue={name} ref={nameInput => this.nameInput = nameInput }></textarea>
             </form>
           )
           : (
