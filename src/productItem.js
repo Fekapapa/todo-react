@@ -11,6 +11,7 @@ class ProductItem extends Component {
 
     this.onDelete = this.onDelete.bind(this);
     this.onEdit = this.onEdit.bind(this);
+    this.onEditBack = this.onEditBack.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
     this.isDone = this.isDone.bind(this);
   }
@@ -25,6 +26,9 @@ class ProductItem extends Component {
     this.setState({ isEdit: true });
   }
 
+  onEditBack() {
+    this.setState({ isEdit: false });
+  }
 
   onEditSubmit(event) {
     event.preventDefault();
@@ -41,16 +45,20 @@ class ProductItem extends Component {
   }
 
   render() {
-    const { name, price } = this.props;
+    const { name } = this.props;
 
     return (
       <div>
         {
           this.state.isEdit
           ? (
-            <form onSubmit={this.onEditSubmit}>
-              <input placeholder="Name" ref={nameInput => this.nameInput = nameInput } defaultValue={name}/>
-              <button>Save</button>
+            <form className="card" onSubmit={this.onEditSubmit}>
+              <div className="card-header">
+                <input className="card-button" type="submit" value="Save"/>
+                <span className="card-button" onClick={this.onEditBack}>Back</span>
+              </div>
+                <div className="card-text card-invisible">{name}</div>
+                <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" placeholder="Name" ref={nameInput => this.nameInput = nameInput } defaultValue={name}></textarea>
             </form>
           )
           : (
