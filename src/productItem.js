@@ -76,8 +76,8 @@ class ProductItem extends Component {
             <form className="card card-background" onSubmit={this.onEditSubmit}>
               <div className="card-header">
                 <span className="card-header-text">Editing...</span>
-                <input className="card-button" type="submit" value="Save"/>
-                <span className="card-button" onClick={this.onEditBack}>Back</span>
+                <input className="card-button" type="submit" value="Save" title="Click here to save the text in the todo card"/>
+                <span className="card-button" onClick={this.onEditBack} title="Click here to exit editing without save">Back</span>
               </div>
                 <div className="card-text card-invisible">{name}</div>
                 <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" defaultValue={name} ref={nameInput => this.nameInput = nameInput }></textarea>
@@ -88,15 +88,15 @@ class ProductItem extends Component {
               <input className="card-checkbox" id={this.props.id} type="checkbox"/>
               <div className="card-header">
                 <div className="card-header-menu">
-                  <span className="card-button" onClick={this.onEdit} data-id={this.props.id} data-edit={this.props.autoEdit}>Edit</span>
-                  <label className="card-button" htmlFor={this.props.id}>Change status</label>
+                  <span className="card-button" onClick={this.onEdit} data-id={this.props.id} data-edit={this.props.autoEdit} title="Click here to edit the text of this todo card">Edit</span>
+                  <label className="card-button" htmlFor={this.props.id} title="Click here to open the Status Change Menu">Change status</label>
                 </div>
                 <div className="card-status-submenu">
-                  <span className="card-status-submenu-element card-button" data-status="todo" onClick={this.setStatus}>Set todo</span>
-                  <span className="card-status-submenu-element card-button" data-status="doing" onClick={this.setStatus}>Set doing</span>
-                  <span className="card-status-submenu-element card-button" data-status="done" onClick={this.setStatus}>Set done</span>
+                  <span className="card-status-submenu-element card-button" data-status="todo" onClick={this.setStatus} title="Click here to set the status of this todo card to 'todo'">Set todo</span>
+                  <span className="card-status-submenu-element card-button" data-status="doing" onClick={this.setStatus} title="Click here to set the status of this todo card to 'doing'">Set doing</span>
+                  <span className="card-status-submenu-element card-button" data-status="done" onClick={this.setStatus} title="Click here to set the status of this todo card to 'done'">Set done</span>
                 </div>
-                <span className="card-button-delete" onClick={this.onDelete}></span>
+                <span className="card-button-delete" onClick={this.onDelete} title="Click here to delete this todo card"></span>
               </div>
               <div className="card-text">{name}</div>
             </div>

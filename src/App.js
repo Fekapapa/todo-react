@@ -7,22 +7,33 @@ const products = [
   {
     name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
     id: 0,
+    status: 'done',
+    autoEdit: false
+  },
+  {
+    name: 'Card header dropdown repair',
+    id: 1,
     status: 'todo',
     autoEdit: false
   },
   {
-    name: 'iPhone',
-    id: 1,
-    status: 'doing',
+    name: 'Button hover texts',
+    id: 2,
+    status: 'todo',
     autoEdit: false
   },
   {
-    name: 'alma',
-    id: 2,
-    status: 'done',
+    name: 'All the code refactor',
+    id: 3,
+    status: 'todo',
+    autoEdit: false
+  },
+  {
+    name: 'localstorage work',
+    id: 4,
+    status: 'todo',
     autoEdit: false
   }
-
 ]
 
 localStorage.setItem('products', JSON.stringify(products));
@@ -138,7 +149,7 @@ class App extends Component {
                   return productList
                 })
               }
-              <div className="column-add-card" data-status="todo" onClick={this.onAdd}>Add a card...</div>
+              <div className="column-add-card" data-status="todo" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
             </div>
             <div className="grid-item doing">
               <div className="column-title">I'm doing...</div>
@@ -158,7 +169,7 @@ class App extends Component {
                     return productList
                   })
                 }
-              <div className="column-add-card" data-status="doing" onClick={this.onAdd}>Add a card...</div>
+              <div className="column-add-card" data-status="doing" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
             </div>
             <div className="grid-item done">
               <div className="column-title">I've done this all!</div>
@@ -178,7 +189,7 @@ class App extends Component {
                     return productList
                   })
                 }
-              <div className="column-add-card" data-status="done" onClick={this.onAdd}>Add a card...</div>
+              <div className="column-add-card" data-status="done" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
             </div>
           </div>
         </div>
