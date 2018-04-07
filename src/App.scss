@@ -36,7 +36,7 @@ input {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .footer {
@@ -92,7 +92,7 @@ input {
 
 .grid-item {
   align-self: start;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px;
   margin-bottom: 20px;
 
@@ -238,17 +238,13 @@ form .card-header {
 .card-status-submenu {
   color: rgb(225, 224, 220);
   cursor: auto;
-  display: flex;
-  justify-content: space-around;
   font-size: 14px;
-  margin-right: 10px;
   margin-top: 10px;
-  max-height: 30px;
-  overflow: hidden;
-  left: 0;
-  top: 32px;
-  transition:max-height 0.3s ease-in;
-  width: 100%;
+  position: absolute;
+  right: 45px;
+  display: flex;
+  justify-content: space-between;
+  width: 136px;
 }
 
 input:checked ~ div.card-header {
@@ -258,6 +254,10 @@ input:checked ~ div.card-header {
 }
 
 .card-status-submenu-element {
-  margin: 0;
   margin-bottom: 5px;
+  margin-right: 0;
+}
+
+.todo #todo-button, .doing #doing-button, .done #done-button {
+  display: none;
 }

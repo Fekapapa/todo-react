@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import cardBackground from'./img/card_background.png';
 
-class ProductItem extends Component {
+class TodoItem extends Component {
   constructor(props) {
     super(props);
 
@@ -80,7 +80,7 @@ class ProductItem extends Component {
                 <span className="card-button" onClick={this.onEditBack} title="Click here to exit editing without save">Back</span>
               </div>
                 <div className="card-text card-invisible">{name}</div>
-                <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" defaultValue={name} ref={nameInput => this.nameInput = nameInput }></textarea>
+                <textarea autoFocus name="text" wrap="soft" className="card-text card-textarea" defaultValue={name} placeholder="My todo is..." ref={nameInput => this.nameInput = nameInput }></textarea>
             </form>
           )
           : (
@@ -92,9 +92,9 @@ class ProductItem extends Component {
                   <label className="card-button" htmlFor={this.props.id} title="Click here to open the Status Change Menu">Change status</label>
                 </div>
                 <div className="card-status-submenu">
-                  <span className="card-status-submenu-element card-button" data-status="todo" onClick={this.setStatus} title="Click here to set the status of this todo card to 'todo'">Set todo</span>
-                  <span className="card-status-submenu-element card-button" data-status="doing" onClick={this.setStatus} title="Click here to set the status of this todo card to 'doing'">Set doing</span>
-                  <span className="card-status-submenu-element card-button" data-status="done" onClick={this.setStatus} title="Click here to set the status of this todo card to 'done'">Set done</span>
+                  <span id="todo-button" className="card-status-submenu-element card-button" data-status="todo" onClick={this.setStatus} title="Click here to set the status of this todo card to 'todo'">Set todo</span>
+                  <span id="doing-button" className="card-status-submenu-element card-button" data-status="doing" onClick={this.setStatus} title="Click here to set the status of this todo card to 'doing'">Set doing</span>
+                  <span id="done-button" className="card-status-submenu-element card-button" data-status="done" onClick={this.setStatus} title="Click here to set the status of this todo card to 'done'">Set done</span>
                 </div>
                 <span className="card-button-delete" onClick={this.onDelete} title="Click here to delete this todo card"></span>
               </div>
@@ -108,4 +108,4 @@ class ProductItem extends Component {
   }
 }
 
-export default ProductItem;
+export default TodoItem;

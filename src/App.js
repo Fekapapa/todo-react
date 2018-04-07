@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.scss';
 
-import ProductItem from './productItem';
+import TodoItem from './todoItem';
 
-const products = [
+const initTodos = [
   {
     name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
     id: 0,
@@ -36,54 +36,63 @@ const products = [
   }
 ]
 
-localStorage.setItem('products', JSON.stringify(products));
-
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      products: JSON.parse(localStorage.getItem('products'))
-    };
+    if (!localStorage.getItem('todos-hf-react')) {
+      localStorage.setItem('todos-hf-react', JSON.stringify(initTodos));
+    }
 
+    this.state = { todos: JSON.parse(localStorage.getItem('todos-hf-react')) };
+
+    this.stateChange = this.stateChange.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.idSetter = this.idSetter.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
     this.setStatus = this.setStatus.bind(this);
+    this.comparator = this.comparator.bind(this);
   }
 
   componentWillMount() {
-    const products = this.getProducts();
+    const todos = this.getTodos();
 
-    this.setState({ products });
+    this.stateChange(todos);
   }
 
-  getProducts() {
-    return this.state.products
+  getTodos() {
+    return this.state.todos
+  }
+
+  stateChange(todos) {
+    this.setState({ todos });
+    if (localStorage.getItem('todos-hf-react')) {
+      localStorage.setItem('todos-hf-react', JSON.stringify(todos));
+    }
   }
 
   onAdd(event) {
     event.preventDefault();
 
-    const products = this.getProducts();
-    const name = 'My to-do is...';
+    const todos = this.getTodos();
+    const name = '';
     const autoEdit = true;
 
     let status = event.target.getAttribute('data-status');
-    let id = this.idSetter(products);
+    let id = this.idSetter(todos);
 
-    products.push({ name, id, status, autoEdit });
+    todos.push({ name, id, status, autoEdit });
 
-    this.setState({ products });
+    this.stateChange(todos);
   }
 
-  idSetter(products, tempId = 0) {
-    Object.keys(products).forEach(function(key) {
-      products[key].autoEdit = false;
+  idSetter(todos, tempId = 0) {
+    Object.keys(todos).forEach(function(key) {
+      todos[key].autoEdit = false;
 
-      if (products[key].id >= tempId) {
-        tempId = products[key].id + 1;
+      if (todos[key].id >= tempId) {
+        tempId = todos[key].id + 1;
       }
     });
 
@@ -91,36 +100,48 @@ class App extends Component {
   }
 
   onDelete(id) {
-    const products = this.getProducts();
+    const todos = this.getTodos();
 
-    const filteredProducts = products.filter(product => {
-      return product.id !== id;
+    let filteredTodos = todos.filter(todo => {
+      return todo.id !== id;
     })
 
-    this.setState({ products: filteredProducts })
+    this.stateChange(filteredTodos);
   }
 
   onEditSubmit(name, id) {
-    let products = this.getProducts();
+    let todos = this.getTodos();
 
-    Object.keys(products).forEach(function(key) {
-      if (products[key].id === id) {
-        products[key].name = name;
+    Object.keys(todos).forEach(function(key) {
+      if (todos[key].id === id) {
+        todos[key].name = name;
       }
     });
-    this.setState({ products });
+    this.stateChange(todos);
   }
 
   setStatus(id, status) {
-    let products = this.getProducts();
+    let todos = this.getTodos();
+    let newId = this.idSetter(todos);
 
-    Object.keys(products).forEach(function(key) {
-      if (products[key].id === id) {
-        products[key].status = status;
+    Object.keys(todos).forEach(function(key) {
+      if (todos[key].id === id) {
+        todos[key].status = status;
+        todos[key].id = newId;
       }
     });
 
-    this.setState({ products });
+    this.stateChange(todos);
+  }
+
+  comparator(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
   }
 
   render() {
@@ -134,19 +155,19 @@ class App extends Component {
             <div className="grid-item todo">
               <div className="column-title">I have to do...</div>
               {
-                this.state.products.map(product => {
-                  let productList;
-                  if (product.status === 'todo') {
-                    productList =
-                     <ProductItem
-                      key={product.id}
-                      {...product}
+                this.state.todos.sort(this.comparator).map(todo => {
+                  let todoList;
+                  if (todo.status === 'todo') {
+                    todoList =
+                     <TodoItem
+                      key={todo.id}
+                      {...todo}
                       onDelete={this.onDelete}
                       onEditSubmit={this.onEditSubmit}
                       setStatus={this.setStatus}
                     />
                   }
-                  return productList
+                  return todoList
                 })
               }
               <div className="column-add-card" data-status="todo" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
@@ -154,19 +175,20 @@ class App extends Component {
             <div className="grid-item doing">
               <div className="column-title">I'm doing...</div>
                 {
-                  this.state.products.map(product => {
-                    let productList;
-                    if (product.status === 'doing') {
-                      productList =
-                       <ProductItem
-                        key={product.id}
-                        {...product}
+                  this.state.todos.sort(this.comparator).map(todo => {
+                    let todoList;
+                    if (todo.status === 'doing') {
+                      todoList =
+                       <TodoItem
+                        key={todo.id}
+                        {...todo}
                         onDelete={this.onDelete}
                         onEditSubmit={this.onEditSubmit}
                         setStatus={this.setStatus}
                       />
                     }
-                    return productList
+
+                    return todoList
                   })
                 }
               <div className="column-add-card" data-status="doing" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
@@ -174,19 +196,19 @@ class App extends Component {
             <div className="grid-item done">
               <div className="column-title">I've done this all!</div>
                 {
-                  this.state.products.map(product => {
-                    let productList;
-                    if (product.status === 'done') {
-                      productList =
-                       <ProductItem
-                        key={product.id}
-                        {...product}
+                  this.state.todos.sort(this.comparator).map(todo => {
+                    let todoList;
+                    if (todo.status === 'done') {
+                      todoList =
+                       <TodoItem
+                        key={todo.id}
+                        {...todo}
                         onDelete={this.onDelete}
                         onEditSubmit={this.onEditSubmit}
                         setStatus={this.setStatus}
                       />
                     }
-                    return productList
+                    return todoList
                   })
                 }
               <div className="column-add-card" data-status="done" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
