@@ -35,7 +35,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
+const cssFilename = './todo_react.[name].[contenthash:8].css';
 
 // ExtractTextPlugin expects the build output to be flat.
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
@@ -63,8 +63,8 @@ module.exports = {
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
     // We don't currently advertise code splitting but Webpack supports it.
-    filename: 'static/js/[name].[chunkhash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+    filename: './todo_react.[name].[chunkhash:8].js',
+    chunkFilename: './todo_react.[name].[chunkhash:8].chunk.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
@@ -140,7 +140,7 @@ module.exports = {
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
-              name: 'static/media/[name].[hash:8].[ext]',
+              name: './todo_react.[name].[hash:8].[ext]',
             },
           },
           // Process JS with Babel.
@@ -181,7 +181,7 @@ module.exports = {
                       loader: require.resolve('css-loader'),
                       options: {
                         importLoaders: 1,
-                        minimize: true,
+                        minimize: false,
                         sourceMap: shouldUseSourceMap,
                       },
                     },
@@ -231,7 +231,7 @@ module.exports = {
                       loader: require.resolve('css-loader'),
                       options: {
                         importLoaders: 1,
-                        minimize: true,
+                        minimize: false,
                         sourceMap: shouldUseSourceMap,
                       },
                     },
@@ -274,7 +274,7 @@ module.exports = {
             // by webpacks internal loaders.
             exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
             options: {
-              name: 'static/media/[name].[hash:8].[ext]',
+              name: './todo_react.[name].[hash:8].[ext]',
             },
           },
           // ** STOP ** Are you adding a new loader?
@@ -295,16 +295,16 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
       minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
+        removeComments: false,
+        collapseWhitespace: false,
+        removeRedundantAttributes: false,
+        useShortDoctype: false,
+        removeEmptyAttributes: false,
+        removeStyleLinkTypeAttributes: false,
         keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
+        minifyJS: false,
+        minifyCSS: false,
+        minifyURLs: false,
       },
     }),
     // Makes some environment variables available to the JS code, for example:
@@ -341,7 +341,7 @@ module.exports = {
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.
     new ManifestPlugin({
-      fileName: 'asset-manifest.json',
+      fileName: 'todo_react.asset-manifest.json',
     }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
@@ -351,7 +351,7 @@ module.exports = {
       // If a URL is already hashed by Webpack, then there is no concern
       // about it being stale, and the cache-busting can be skipped.
       dontCacheBustUrlsMatching: /\.\w{8}\./,
-      filename: 'service-worker.js',
+      filename: 'todo_react.service-worker.js',
       logger(message) {
         if (message.indexOf('Total precache size is') === 0) {
           // This message occurs for every build and is a bit too noisy.
@@ -366,7 +366,7 @@ module.exports = {
       },
       minify: true,
       // For unknown URLs, fallback to the index page
-      navigateFallback: publicUrl + '/index.html',
+      navigateFallback: publicUrl + '/todo_react.index.html',
       // Ignores URLs starting from /__ (useful for Firebase):
       // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
       navigateFallbackWhitelist: [/^(?!\/__).*/],

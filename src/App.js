@@ -60,11 +60,11 @@ const initTodos = [
   },
   {
     name: 'Practise continous deployment',
-    id: 8,
+    id: 9,
     status: 'doing',
     autoEdit: false
   }
-]
+];
 
 class App extends Component {
   constructor(props) {
