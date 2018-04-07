@@ -40,6 +40,7 @@ class TodoItem extends Component {
   }
 
   onEditBack() {
+    this.props.onEditBack(this.props.id);
     this.setState({ isEdit: false });
   }
 

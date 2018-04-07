@@ -5,33 +5,63 @@ import TodoItem from './todoItem';
 
 const initTodos = [
   {
-    name: 'Get the dragged data with the dataTransfer.getData() method. This method will return any data that was set to the same type in the setData() method',
+    name: 'Learn React',
     id: 0,
     status: 'done',
     autoEdit: false
   },
   {
-    name: 'Card header dropdown repair',
+    name: 'Create React TODO app',
     id: 1,
-    status: 'todo',
+    status: 'done',
     autoEdit: false
   },
   {
-    name: 'Button hover texts',
+    name: 'Test React TODO app',
     id: 2,
-    status: 'todo',
+    status: 'doing',
     autoEdit: false
   },
   {
-    name: 'All the code refactor',
+    name: 'Learn Angular',
     id: 3,
     status: 'todo',
     autoEdit: false
   },
   {
-    name: 'localstorage work',
+    name: 'Create Angular TODO app',
     id: 4,
     status: 'todo',
+    autoEdit: false
+  },
+  {
+    name: 'Test React TODO app',
+    id: 5,
+    status: 'todo',
+    autoEdit: false
+  },
+  {
+    name: 'Learn Vue.js',
+    id: 6,
+    status: 'doing',
+    autoEdit: false
+  },
+  {
+    name: 'Create Vue.js TODO app',
+    id: 7,
+    status: 'done',
+    autoEdit: false
+  },
+  {
+    name: 'Test Vue.js TODO app',
+    id: 8,
+    status: 'done',
+    autoEdit: false
+  },
+  {
+    name: 'Practise continous deployment',
+    id: 8,
+    status: 'doing',
     autoEdit: false
   }
 ]
@@ -50,6 +80,7 @@ class App extends Component {
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.idSetter = this.idSetter.bind(this);
+    this.onEditBack = this.onEditBack.bind(this);
     this.onEditSubmit = this.onEditSubmit.bind(this);
     this.setStatus = this.setStatus.bind(this);
     this.comparator = this.comparator.bind(this);
@@ -109,12 +140,24 @@ class App extends Component {
     this.stateChange(filteredTodos);
   }
 
+  onEditBack(id) {
+    let todos = this.getTodos();
+
+    Object.keys(todos).forEach(function(key) {
+      if (todos[key].id === id) {
+        todos[key].autoEdit = false;
+      }
+    });
+    this.stateChange(todos);
+  }
+
   onEditSubmit(name, id) {
     let todos = this.getTodos();
 
     Object.keys(todos).forEach(function(key) {
       if (todos[key].id === id) {
         todos[key].name = name;
+        todos[key].autoEdit = false;
       }
     });
     this.stateChange(todos);
@@ -163,6 +206,7 @@ class App extends Component {
                       key={todo.id}
                       {...todo}
                       onDelete={this.onDelete}
+                      onEditBack={this.onEditBack}
                       onEditSubmit={this.onEditSubmit}
                       setStatus={this.setStatus}
                     />
@@ -183,6 +227,7 @@ class App extends Component {
                         key={todo.id}
                         {...todo}
                         onDelete={this.onDelete}
+                        onEditBack={this.onEditBack}
                         onEditSubmit={this.onEditSubmit}
                         setStatus={this.setStatus}
                       />
@@ -204,6 +249,7 @@ class App extends Component {
                         key={todo.id}
                         {...todo}
                         onDelete={this.onDelete}
+                        onEditBack={this.onEditBack}
                         onEditSubmit={this.onEditSubmit}
                         setStatus={this.setStatus}
                       />
