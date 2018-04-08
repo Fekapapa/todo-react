@@ -96,6 +96,7 @@ class App extends Component {
     return this.state.todos
   }
 
+// The change of the State can only happen through this function.
   stateChange(todos) {
     this.setState({ todos });
     if (localStorage.getItem('todos-hf-react')) {

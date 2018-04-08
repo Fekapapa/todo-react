@@ -1,7 +1,10 @@
+// Variables and tag rules
+
 $break-small: 768px;
 $break-normal: 992px;
 
 $bg-color: rgb(30, 30, 30);
+$txtarea-color: rgb(100, 100, 100);
 
 body {
   font-family: 'Source Serif Pro', serif;
@@ -11,18 +14,18 @@ body {
 textarea {
   background: none;
   border: none;
-  color: rgb(100, 100, 100);
+  color: $txtarea-color;
   display: block;
   font-family: 'Source Serif Pro', serif;
-  height: calc(100% - 34px);
   resize: none;
   outline: none;
 }
 
 input {
-  font-family: 'Source Serif Pro', serif;
   border: none;
 }
+
+// Main section elements (header, footer, main-container)
 
 .header {
   background-color: rgb(10, 10, 10);
@@ -47,6 +50,7 @@ input {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 3;
 }
 
 .main-container {
@@ -68,20 +72,20 @@ input {
   }
 }
 
-.pseudo-body {
-  margin: auto;
-  margin-bottom: 40px;
-  margin-top: 80px;
-  max-width: 992px;
-  min-height: calc(100vh - 120px);
-}
+// Grid system
 
 .grid-container {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: auto;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 80px;
+  max-width: $break-normal;
+  min-height: calc(100vh - 120px);
   padding: 20px 10% 0 10%;
+
 
   @media screen and (min-width: $break-small) {
     grid-template-columns: repeat(3, 1fr);
@@ -101,11 +105,6 @@ input {
   }
 }
 
-.form-field {
-  padding-bottom: 20px;
-  padding-top: 20px;
-}
-
 .column-title {
   background-color: rgba(240, 240, 240, 0.8);
   border-radius: 3px 3px 0 0;
@@ -115,6 +114,8 @@ input {
   line-height: 50px;
   margin-bottom: 20px;
 }
+
+// Card rules stats here. Only cards display rules coming below in this file
 
 .card {
   background-repeat: no-repeat;
@@ -127,6 +128,8 @@ input {
   padding-top: 0;
   position: relative;
 }
+
+// Different card background colors in differenc coulmns
 
 .todo .card-background {
   background: linear-gradient(rgba(255, 220, 220, 0.5), rgba(255, 220, 220, 0.5)), url("./img/card_background.png");
@@ -200,6 +203,7 @@ input {
   width: 20px;
 }
 
+// Card invisible during editing. It needs to set the cards height. (.card-textarea position is absolute)
 .card-invisible {
   visibility: hidden;
   pointer-events: none;
@@ -231,6 +235,7 @@ form .card-header {
   text-align: left;
 }
 
+// Checkbox not displayed, label displayed instead if it
 .card-checkbox {
   display: none;
 }
@@ -247,6 +252,7 @@ form .card-header {
   width: 136px;
 }
 
+// CSS only dropdown menu: header height increase makes the menu visible
 input:checked ~ div.card-header {
   background-color: rgba(0, 0, 0, 0.7);
   height: 60px;
@@ -258,6 +264,7 @@ input:checked ~ div.card-header {
   margin-right: 0;
 }
 
+// The same as coulmn card status button must be hide
 .todo #todo-button, .doing #doing-button, .done #done-button {
   display: none;
 }

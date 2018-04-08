@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import cardBackground from'./img/card_background.png';
 
 class TodoItem extends Component {
   constructor(props) {
@@ -31,7 +30,6 @@ class TodoItem extends Component {
 
   onDelete() {
     const { onDelete, id } = this.props;
-
     onDelete(id);
   }
 
@@ -48,7 +46,6 @@ class TodoItem extends Component {
     event.preventDefault();
 
     this.props.onEditSubmit(this.nameInput.value, this.props.id);
-
     this.setState({ isEdit: false });
   }
 
@@ -60,9 +57,9 @@ class TodoItem extends Component {
 
   setStatus(event) {
     event.preventDefault();
+
     const { setStatus, id } = this.props;
     let status = event.target.getAttribute('data-status');
-
     setStatus(id, status);
   }
 
@@ -104,7 +101,6 @@ class TodoItem extends Component {
           )
         }
       </div>
-
     );
   }
 }
