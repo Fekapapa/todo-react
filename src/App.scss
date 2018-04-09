@@ -99,7 +99,7 @@ input {
   @media screen and (min-width: $break-small) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
-    padding: 20px 10px 40px 10px;
+    padding: 20px 10px 0 10px;
   }
 }
 
