@@ -143,16 +143,16 @@ class App extends Component {
 
   onEditBack(id) {
     let todos = this.getTodos();
-    let outerScope = this;
+    let outerThis = this;
 
     Object.keys(todos).forEach(function(key) {
 
       if (todos[key].id === id) {
         if (todos[key].name === '') {
-          outerScope.onDelete(id);
+          outerThis.onDelete(id);
         } else {
           todos[key].autoEdit = false;
-          this.stateChange(todos);
+          outerThis.stateChange(todos);
         }
       }
     });
@@ -160,17 +160,17 @@ class App extends Component {
 
   onEditSubmit(name, id) {
     let todos = this.getTodos();
-    let outerScope = this;
+    let outerThis = this;
 
     Object.keys(todos).forEach(function(key) {
 
       if (todos[key].id === id) {
         if (name === '') {
-          outerScope.onDelete(id);
+          outerThis.onDelete(id);
         } else {
           todos[key].name = name;
           todos[key].autoEdit = false;
-          outerScope.stateChange(todos);
+          outerThis.stateChange(todos);
         }
       }
     });
@@ -206,14 +206,56 @@ class App extends Component {
         <div className="header">
           <span>Let's Do It! :)</span>
         </div>
-        <div className="pseudo-body">
-          <div className="grid-container">
-            <div className="grid-item todo">
-              <div className="column-title">I have to do...</div>
+        <div className="grid-container">
+          <div className="grid-item todo">
+            <div className="column-title">I have to do...</div>
+            {
+              this.state.todos.sort(this.comparator).map(todo => {
+                let todoList;
+                if (todo.status === 'todo') {
+                  todoList =
+                   <TodoItem
+                    key={todo.id}
+                    {...todo}
+                    onDelete={this.onDelete}
+                    onEditBack={this.onEditBack}
+                    onEditSubmit={this.onEditSubmit}
+                    setStatus={this.setStatus}
+                  />
+                }
+                return todoList
+              })
+            }
+            <div className="column-add-card" data-status="todo" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
+          </div>
+          <div className="grid-item doing">
+            <div className="column-title">I'm doing...</div>
               {
                 this.state.todos.sort(this.comparator).map(todo => {
                   let todoList;
-                  if (todo.status === 'todo') {
+                  if (todo.status === 'doing') {
+                    todoList =
+                     <TodoItem
+                      key={todo.id}
+                      {...todo}
+                      onDelete={this.onDelete}
+                      onEditBack={this.onEditBack}
+                      onEditSubmit={this.onEditSubmit}
+                      setStatus={this.setStatus}
+                    />
+                  }
+
+                  return todoList
+                })
+              }
+            <div className="column-add-card" data-status="doing" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
+          </div>
+          <div className="grid-item done">
+            <div className="column-title">I've done this all!</div>
+              {
+                this.state.todos.sort(this.comparator).map(todo => {
+                  let todoList;
+                  if (todo.status === 'done') {
                     todoList =
                      <TodoItem
                       key={todo.id}
@@ -227,51 +269,7 @@ class App extends Component {
                   return todoList
                 })
               }
-              <div className="column-add-card" data-status="todo" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
-            </div>
-            <div className="grid-item doing">
-              <div className="column-title">I'm doing...</div>
-                {
-                  this.state.todos.sort(this.comparator).map(todo => {
-                    let todoList;
-                    if (todo.status === 'doing') {
-                      todoList =
-                       <TodoItem
-                        key={todo.id}
-                        {...todo}
-                        onDelete={this.onDelete}
-                        onEditBack={this.onEditBack}
-                        onEditSubmit={this.onEditSubmit}
-                        setStatus={this.setStatus}
-                      />
-                    }
-
-                    return todoList
-                  })
-                }
-              <div className="column-add-card" data-status="doing" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
-            </div>
-            <div className="grid-item done">
-              <div className="column-title">I've done this all!</div>
-                {
-                  this.state.todos.sort(this.comparator).map(todo => {
-                    let todoList;
-                    if (todo.status === 'done') {
-                      todoList =
-                       <TodoItem
-                        key={todo.id}
-                        {...todo}
-                        onDelete={this.onDelete}
-                        onEditBack={this.onEditBack}
-                        onEditSubmit={this.onEditSubmit}
-                        setStatus={this.setStatus}
-                      />
-                    }
-                    return todoList
-                  })
-                }
-              <div className="column-add-card" data-status="done" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
-            </div>
+            <div className="column-add-card" data-status="done" onClick={this.onAdd} title="Click here to add a new todo card">Add a card...</div>
           </div>
         </div>
         <div className="footer">
