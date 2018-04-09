@@ -1,10 +1,20 @@
-// Variables and tag rules
+// Variables
 
 $break-small: 768px;
 $break-normal: 992px;
 
 $bg-color: rgb(30, 30, 30);
+$bg-color-shade: rgba(0, 0, 0, 0.2);
 $txtarea-color: rgb(100, 100, 100);
+$bg-card-color-todo: rgba(255, 220, 220, 0.5);
+$bg-card-color-doing: rgba(255, 255, 220, 0.5);
+$bg-card-color-done: rgba(220, 255, 220, 0.5);
+$btn-text-color: rgb(225, 224, 220);
+$header-footer-color: rgb(10, 10, 10);
+$todo-white: rgb(255, 255, 255);
+$button-shadow: rgba(0, 0, 0, 0.33);
+
+// Tag rules
 
 body {
   font-family: 'Source Serif Pro', serif;
@@ -28,8 +38,8 @@ input {
 // Main section elements (header, footer, main-container)
 
 .header {
-  background-color: rgb(10, 10, 10);
-  color: rgb(255, 255, 255);
+  background-color: $header-footer-color;
+  color: $todo-white;
   font-family: 'Hi Melody', cursive;
   font-size: 40px;
   font-style: italic;
@@ -43,8 +53,8 @@ input {
 }
 
 .footer {
-  background-color: rgb(10, 10, 10);
-  color: rgb(255, 255, 255);
+  background-color: $header-footer-color;
+  color: $todo-white;
   font-size: 12px;
   line-height: 40px;
   position: fixed;
@@ -54,19 +64,19 @@ input {
 }
 
 .main-container {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 300px, transparent 450px), linear-gradient(to bottom, transparent 300px, $bg-color 450px), url("./img/main_background_mobile.jpg");
+  background: linear-gradient(to bottom, $bg-color-shade 300px, transparent 450px), linear-gradient(to bottom, transparent 300px, $bg-color 450px), url("./img/main_background_mobile.jpg");
   background-repeat: no-repeat;
   background-position: top;
   background-size: 100%;
 
   @media screen and (min-width: $break-small) {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background_mobile.jpg");
+    background: linear-gradient(to bottom, $bg-color-shade 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background_mobile.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
   }
 
   @media screen and (min-width: $break-normal) {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background.jpg");
+    background: linear-gradient(to bottom, $bg-color-shade 400px, transparent 600px), linear-gradient(to bottom, transparent 400px, $bg-color 600px), url("./img/main_background.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
   }
@@ -80,17 +90,16 @@ input {
   grid-template-columns: auto;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
   margin: auto;
-  margin-bottom: 40px;
   margin-top: 80px;
   max-width: $break-normal;
   min-height: calc(100vh - 120px);
-  padding: 20px 10% 0 10%;
+  padding: 20px 10% 40px 10%;
 
 
   @media screen and (min-width: $break-small) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px 40px 10px;
   }
 }
 
@@ -120,7 +129,7 @@ input {
 .card {
   background-repeat: no-repeat;
   border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.30), 0 3px 7px rgba(0,0,0,0.33), inset 0 0 10px rgb(0, 0, 0);
+  box-shadow: 0 8px 16px $button-shadow, 0 3px 7px $button-shadow, inset 0 0 10px rgb(0, 0, 0);
   min-height: 80px;
   margin-bottom: 20px;
   margin-left: 10px;
@@ -132,15 +141,15 @@ input {
 // Different card background colors in differenc coulmns
 
 .todo .card-background {
-  background: linear-gradient(rgba(255, 220, 220, 0.5), rgba(255, 220, 220, 0.5)), url("./img/card_background.png");
+  background: linear-gradient($bg-card-color-todo, $bg-card-color-todo), url("./img/card_background.png");
 }
 
 .doing .card-background {
-  background: linear-gradient(rgba(255, 255, 220, 0.5), rgba(255, 255, 220, 0.5)), url("./img/card_background.png");
+  background: linear-gradient($bg-card-color-doing, $bg-card-color-doing), url("./img/card_background.png");
 }
 
 .done .card-background {
-  background: linear-gradient(rgba(220, 255, 220, 0.5), rgba(220, 255, 220, 0.5)), url("./img/card_background.png");
+  background: linear-gradient($bg-card-color-done, $bg-card-color-done), url("./img/card_background.png");
 }
 
 .card-header {
@@ -175,7 +184,7 @@ input {
 }
 
 .card-button {
-  background: linear-gradient(to top, rgb(246, 245, 240), rgb(225, 224, 220));
+  background: linear-gradient(to top, rgb(246, 245, 240), $btn-text-color);
   border-radius: 3px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .30), 0 1px 2px rgba(0, 0, 0, .33), inset 0 0 3px #000000;;
   color: rgb(107, 99, 91);
@@ -184,7 +193,7 @@ input {
   font-size: 12px;
   margin-right: 20px;
   padding: 2px 5px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .439);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .44);
 }
 
 .card-button-delete {
@@ -193,7 +202,7 @@ input {
   background-size: 100%;
   background-repeat: no-repeat;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.33);
+  box-shadow: 0 2px 4px $button-shadow, 0 1px 2px $button-shadow;
   cursor: pointer;
   display: inline-block;
   height: 20px;
@@ -214,7 +223,7 @@ form .card-header {
 }
 
 .card-header-text {
-  color: rgb(225, 224, 220);
+  color: $btn-text-color;
   cursor: auto;
   display: inline-block;
   font-size: 14px;
@@ -241,7 +250,7 @@ form .card-header {
 }
 
 .card-status-submenu {
-  color: rgb(225, 224, 220);
+  color: $btn-text-color;
   cursor: auto;
   font-size: 14px;
   margin-top: 10px;
