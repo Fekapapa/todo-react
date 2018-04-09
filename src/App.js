@@ -143,25 +143,37 @@ class App extends Component {
 
   onEditBack(id) {
     let todos = this.getTodos();
+    let outerScope = this;
 
     Object.keys(todos).forEach(function(key) {
+
       if (todos[key].id === id) {
-        todos[key].autoEdit = false;
+        if (todos[key].name === '') {
+          outerScope.onDelete(id);
+        } else {
+          todos[key].autoEdit = false;
+          this.stateChange(todos);
+        }
       }
     });
-    this.stateChange(todos);
   }
 
   onEditSubmit(name, id) {
     let todos = this.getTodos();
+    let outerScope = this;
 
     Object.keys(todos).forEach(function(key) {
+
       if (todos[key].id === id) {
-        todos[key].name = name;
-        todos[key].autoEdit = false;
+        if (name === '') {
+          outerScope.onDelete(id);
+        } else {
+          todos[key].name = name;
+          todos[key].autoEdit = false;
+          outerScope.stateChange(todos);
+        }
       }
     });
-    this.stateChange(todos);
   }
 
   setStatus(id, status) {
